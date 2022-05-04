@@ -1,16 +1,16 @@
 <script>
-  import { onMount } from 'svelte';
-  let deletIcon = 'images/trash.svg';
-  let addIcon = 'images/plus.svg';
-  import axios from 'axios';
+  import { onMount } from "svelte";
+  let deletIcon = "images/trash.svg";
+  let addIcon = "images/plus.svg";
+  import axios from "axios";
 
   let isError = null;
-  let todoItem = '';
+  let todoItem = "";
   let todos = [];
 
   const getTodos = async () => {
     try {
-      const res = await axios.get('http://localhost:1337/todos');
+      const res = await axios.get("http://localhost:1337/todos");
       todos = res.data;
     } catch (e) {
       isError = e;
@@ -27,15 +27,15 @@
     // todos = todos;
 
     try {
-      if (!todoItem) return alert('please add a goal for today!');
+      if (!todoItem) return alert("please add a task!");
 
-      const res = await axios.post('http://localhost:1337/todos', {
+      const res = await axios.post("http://localhost:1337/todos", {
         todoItem,
         isCompleted: false,
       });
       // Using a more idiomatic solution
       todos = [...todos, res?.data];
-      todoItem = '';
+      todoItem = "";
     } catch (e) {
       isError = e;
     }
@@ -106,9 +106,9 @@
 <section
   class="rounded-3xl text-white py-10 px-6 mx-auto my-0 max-w-xs	sm:max-w-md	"
 >
-  <h1 class="text-4xl	font-bold mb-5">Hey there!</h1>
+  <h1 class="text-4xl	font-bold mb-5">Task Manager</h1>
   {#if todos.length > 0}
-    <p class="text-2xl mb-4">Today's Goal</p>
+    <p class="text-2xl mb-4">Today's Tasks</p>
   {/if}
   {#if isError}
     <p class="text-xl mb-2 text-red-600">{isError}</p>
@@ -145,13 +145,13 @@
     type="text"
     bind:value={todoItem}
     class="w-full rounded-xl bg-white border-0 outline-none bg-opacity-10 p-4 shadow-lg mt-4"
-    placeholder="Add new goals"
+    placeholder="Add new task"
   />
   <button
     on:click={addTodo}
     class="my-5  p-5 bg-black text-white rounded-xl w-full hover:bg-opacity-60 transition border-0 capitalize flex items-center justify-center"
     ><span><img src={addIcon} alt="add todo" class="w-6 mr-4" /></span>Add new
-    todo</button
+    task</button
   >
   <div class="text-center text-xl">
     <p class="mb-3">
@@ -172,6 +172,6 @@
     text-decoration: line-through;
   }
   section {
-    background-color: #2073dd;
+    background-color: #0c793d;
   }
 </style>
